@@ -1,10 +1,14 @@
 package gohttpclient
 
-import "net/http"
+import (
+	"context"
+	"net/http"
+)
 
-// client is a struct who has BaseUrl property
+// client is a struct who has baseUrl property
 type client struct {
-	BaseUrl string
+	client  *http.Client
+	baseUrl string
 }
 
 // Client is a interface who calls the methods
@@ -19,7 +23,7 @@ type Client interface {
 	PatchWith(endpoint string, params interface{}) (*http.Request, error)
 	Delete(endpoint string) (*http.Request, error)
 	DeleteWith(endpoint string, params interface{}) (*http.Request, error)
-	Do(request *http.Request) (Response, error)
+	Do(ctx context.Context, request *http.Request) (Response, error)
 }
 
 // ResponseStruct is a struct who returns after requests
